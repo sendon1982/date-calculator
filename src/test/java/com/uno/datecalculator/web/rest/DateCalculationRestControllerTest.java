@@ -19,6 +19,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.context.annotation.PropertySource;
+
+import static org.hamcrest.CoreMatchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
@@ -27,12 +29,12 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.Date;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -62,17 +64,8 @@ class DateCalculationRestControllerTest {
     void test_getDaysBetween_success() throws Exception {
         String endpointUrl = String.format("http://localhost:8080/uno/api/date/daysBetween?fromDate=%s&toDate=%s", "01.01.2010", "03.01.2010");
 
-        mockMvc.perform(get(endpointUrl)).andExpect(status().isOk());
-
-//        ResponseEntity<ResponseWrapper<DateInfo>> response = restTemplate.exchange(
-//                endpointUrl,
-//                HttpMethod.GET,
-//                null,
-//                new ParameterizedTypeReference<ResponseWrapper<DateInfo>>(){});
-//        ResponseWrapper<DateInfo> responseWrapper = response.getBody();
-//
-//        assertThat(responseWrapper.getData().getDaysBetween(), equalTo(1L));
-//        assertThat(responseWrapper.getMessage(), nullValue());
-//        assertThat(responseWrapper.getStatus(), equalTo(ResponseStatus.SUCCESS.toString()));
+        MvcResult mvcResult = mockMvc.perform(get(endpointUrl)).andExpect(status().isOk()).andReturn();
+        String content = mvcResult.getResponse().getContentAsString();
+        assertThat(content, containsString("daysBetween"));
     }
 }

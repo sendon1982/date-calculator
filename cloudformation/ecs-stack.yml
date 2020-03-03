@@ -36,8 +36,8 @@ Resources:
       GroupDescription: Security group for java app container
       SecurityGroupIngress:
         - IpProtocol: tcp
-          FromPort: 8080
-          ToPort: 8080
+          FromPort: 8882
+          ToPort: 8882
           CidrIp: 0.0.0.0/0
 
   TaskDefinition:
@@ -52,7 +52,7 @@ Resources:
         - Name: app-container
           Image: sendon1982/date-calculator-service
           PortMappings:
-            - ContainerPort: 8080
+            - ContainerPort: 8882
           LogConfiguration:
             LogDriver: awslogs
             Options:

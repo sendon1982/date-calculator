@@ -1,11 +1,13 @@
 # date-calculator
 
 ## How to run the application
-1. Go the command line and run `mvn clean package` to generate the fat jar file
+1. Update accesskey and secretkey in `application.properties` with your Amazon account
 
-2. Then run command `java -jar target/date-calculator-0.0.1-SNAPSHOT.jar` to start the application
+2. Go the command line and run `mvn clean package` to generate the fat jar file
 
-3. Access URL at `http://localhost:8080/uno/api/date/daysBetween?fromDate=01.01.2020&toDate=05.01.2020` which should
+3. Then run command `java -jar target/date-calculator-0.0.1-SNAPSHOT.jar` to start the application
+
+4. Access URL at `http://localhost:8882/uno/api/date/daysBetween?fromDate=01.01.2020&toDate=05.01.2020` which should
 response as json like:
 ````
 {
@@ -27,7 +29,7 @@ response as json like:
 to push the image to the docker hub repository
 
 
-# How to run with CloudFormation
+# How to run with CloudFormation from AWS console management
 
 ## Create DynamoDB stack
 1. Create a new AWS account in Sydney region and get its accesskey and secretkey for access DynamoDB, as well as SubnetId
